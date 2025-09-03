@@ -1,0 +1,12 @@
+# Ignorar node_modules
+node_modules/
+
+# Ignorar archivos de entorno
+.env
+.env.local
+.env.development
+.env.production
+
+# Otros posibles archivos sensibles
+.DS_Store
+logs/

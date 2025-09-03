@@ -1,0 +1,1024 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+
+  * {
+    @apply border-gray-200;
+  }
+
+  input, textarea, select {
+    @apply focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
+  }
+
+  /* Asegurar que todos los select abran hacia abajo */
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+
+  /* Select en modo oscuro */
+  .dark select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  }
+}
+
+@layer components {
+  /* Componentes de botones */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Animación shimmer para skeleton loading */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Prevención de scroll horizontal en móviles */
+  @media (max-width: 767px) {
+    body {
+      overflow-x: hidden;
+    }
+    
+    .mobile-nav-container {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+    
+    /* Asegurar que la navegación móvil no cause scroll horizontal */
+    .mobile-bottom-nav {
+      width: 100%;
+      max-width: 100vw;
+      overflow: hidden;
+    }
+    
+    /* Prevenir desbordamiento en contenedores flex */
+    .flex-container-mobile {
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    
+    /* Prevención específica para página de transacciones */
+    .transacciones-page {
+      overflow-x: hidden;
+      max-width: 100vw;
+      width: 100%;
+    }
+    
+    /* Contenedores de tarjetas optimizados para móvil */
+    .transacciones-cards {
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    
+    /* Header optimizado para móvil */
+    .transacciones-header {
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+    }
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 dark:bg-primary-500 dark:hover:bg-primary-600;
+  }
+
+  .btn-secondary {
+    @apply btn bg-secondary-100 dark:bg-secondary-700 text-secondary-700 dark:text-secondary-100 hover:bg-secondary-200 dark:hover:bg-secondary-600 focus:ring-secondary-500;
+  }
+
+  .btn-success {
+    @apply btn bg-success-600 text-white hover:bg-success-700 focus:ring-success-500 dark:bg-success-500 dark:hover:bg-success-600;
+  }
+
+  .btn-danger {
+    @apply btn bg-danger-600 text-white hover:bg-danger-700 focus:ring-danger-500 dark:bg-danger-500 dark:hover:bg-danger-600;
+  }
+
+  .btn-outline {
+    @apply btn border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:ring-primary-500;
+  }
+
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+
+  .btn-lg {
+    @apply px-6 py-3 text-base;
+  }
+
+  /* Botones optimizados para móvil */
+  .btn-mobile {
+    @apply btn px-6 py-3 text-base font-semibold rounded-xl shadow-lg hover:shadow-xl active:scale-95 transition-all duration-200;
+  }
+
+  .btn-mobile-primary {
+    @apply btn-mobile bg-gradient-to-r from-primary-500 to-primary-600 text-white hover:from-primary-600 hover:to-primary-700;
+  }
+
+  .btn-mobile-secondary {
+    @apply btn-mobile bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600;
+  }
+
+  /* Componentes de formularios */
+  .form-input {
+    @apply block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm placeholder-gray-400 dark:placeholder-gray-400;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1;
+  }
+
+  .form-error {
+    @apply text-sm text-danger-600 dark:text-danger-400 mt-1;
+  }
+
+  /* Componentes de tarjetas */
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-soft border border-gray-200 dark:border-gray-700 transition-colors;
+  }
+
+  .card-header {
+    @apply px-6 py-4 border-b border-gray-200 dark:border-gray-700;
+  }
+
+  .card-body {
+    @apply px-6 py-4;
+  }
+
+  .card-footer {
+    @apply px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900;
+  }
+
+  /* Tarjetas optimizadas para móvil */
+  .card-mobile {
+    @apply card rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 active:scale-[0.98];
+  }
+
+  .card-mobile .card-header {
+    @apply px-4 py-3 sm:px-6 sm:py-4;
+  }
+
+  .card-mobile .card-body {
+    @apply px-4 py-3 sm:px-6 sm:py-4;
+  }
+
+  .card-mobile .card-footer {
+    @apply px-4 py-3 sm:px-6 sm:py-4;
+  }
+
+  /* Componentes de sidebar */
+  .sidebar-link {
+    @apply flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors;
+  }
+
+  .sidebar-link-active {
+    @apply sidebar-link bg-primary-600 text-white;
+  }
+
+  .sidebar-link-inactive {
+    @apply sidebar-link text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white;
+  }
+
+  /* Componentes de dashboard */
+  .stat-card {
+    @apply card p-6;
+  }
+
+  .stat-title {
+    @apply text-sm font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wide;
+  }
+
+  .stat-value {
+    @apply text-2xl font-bold text-gray-900 dark:text-white mt-2;
+  }
+
+  .stat-value-balance {
+    @apply text-2xl font-bold mt-2;
+  }
+
+  .stat-value-balance-positive {
+    @apply text-success-600 dark:text-success-400;
+  }
+
+  .stat-value-balance-negative {
+    @apply text-danger-600 dark:text-danger-400;
+  }
+
+  .stat-change {
+    @apply text-sm font-medium mt-2;
+  }
+
+  .stat-change-positive {
+    @apply stat-change text-success-600;
+  }
+
+  .stat-change-negative {
+    @apply stat-change text-danger-600;
+  }
+
+  /* Mejoras de contraste para modo oscuro */
+  .text-dark-contrast {
+    @apply text-gray-900 dark:text-white;
+  }
+
+  .text-medium-contrast {
+    @apply text-gray-700 dark:text-gray-200;
+  }
+
+  .text-light-contrast {
+    @apply text-gray-500 dark:text-gray-300;
+  }
+
+  .heading-dark-contrast {
+    @apply text-gray-900 dark:text-white;
+  }
+
+  .heading-medium-contrast {
+    @apply text-gray-800 dark:text-gray-100;
+  }
+
+  /* Nuevas clases para mejor contraste en modo oscuro */
+  .text-high-contrast {
+    @apply text-gray-900 dark:text-gray-50;
+  }
+
+  .text-medium-high-contrast {
+    @apply text-gray-700 dark:text-gray-100;
+  }
+
+  .text-subtitle-contrast {
+    @apply text-gray-500 dark:text-gray-200;
+  }
+
+  .text-legend-contrast {
+    @apply text-gray-600 dark:text-gray-200;
+  }
+
+  /* Animaciones personalizadas */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  /* Utilidades de scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(203 213 225) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgb(203 213 225);
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(148 163 184);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Área segura para dispositivos móviles con notch/home indicator */
+  .h-safe-bottom {
+    height: env(safe-area-inset-bottom, 0.5rem);
+    min-height: 0.5rem;
+  }
+
+  .pb-safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 1.25rem);
+  }
+
+  .mb-safe-bottom {
+    margin-bottom: env(safe-area-inset-bottom, 1.25rem);
+  }
+
+  /* Carrusel de leyendas */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ========================================
+   * SISTEMA DE MODALES RESPONSIVE MEJORADO
+   * ======================================== */
+  
+  /* Base para overlay de modales */
+  /* ========================================
+   * MODAL OVERLAY - DISEÑO EXCLUSIVO MÓVIL
+   * ======================================== */
+  .modal-overlay {
+    @apply fixed z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm transition-all duration-300;
+    /* Overlay completo sin espacios */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Desktop: padding estándar */
+    padding: 1rem;
+  }
+
+  /* Contenedor base del modal */
+  .modal-container {
+    @apply relative w-full bg-white dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden transition-all duration-300;
+    max-width: 32rem; /* 512px */
+    max-height: calc(100vh - 2rem); /* Altura considerando padding */
+  }
+
+  /* Modal estándar - centrado y responsive */
+  .modal-standard {
+    @apply modal-container;
+  }
+
+  /* Modal grande para formularios complejos */
+  .modal-large {
+    @apply modal-container;
+    max-width: 42rem; /* 672px */
+  }
+
+  /* Modal pequeño para confirmaciones */
+  .modal-small {
+    @apply modal-container;
+    max-width: 24rem; /* 384px */
+  }
+
+  /* ========================================
+   * DISEÑO EXCLUSIVO MÓVIL (< 768px)
+   * ======================================== */
+  @media (max-width: 767px) {
+    /* FORZAR centrado perfecto en móvil */
+    .modal-overlay {
+      /* Reset completo de estilos problemáticos */
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      
+      /* Centrado perfecto */
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      
+      /* Padding uniforme */
+      padding: 1rem !important;
+      
+      /* Sin espacios extraños */
+      margin: 0 !important;
+      
+      /* Z-index alto */
+      z-index: 50 !important;
+      
+      /* Fondo */
+      background-color: rgba(0, 0, 0, 0.6) !important;
+      backdrop-filter: blur(4px) !important;
+    }
+    
+    /* CONTENEDORES MODALES MÓVIL - FORZAR CENTRADO */
+    .modal-overlay .modal-container,
+    .modal-overlay .modal-standard,
+    .modal-overlay .modal-large,
+    .modal-overlay .modal-small {
+      /* Reset de estilos problemáticos */
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      
+      /* Dimensiones y centrado */
+      width: 100% !important;
+      max-width: calc(100% - 2rem) !important;
+      max-height: 85vh !important;
+      
+      /* Sin márgenes extraños */
+      margin: 0 !important;
+      
+      /* Bordes y sombra */
+      border-radius: 1rem !important;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+      
+      /* Fondo */
+      background-color: rgb(31, 41, 55) !important; /* dark:bg-gray-800 */
+      
+      /* Overflow */
+      overflow: hidden !important;
+    }
+    
+    /* Modales pequeños específicos */
+    .modal-overlay .modal-small {
+      max-height: 70vh !important;
+    }
+  }
+
+  /* ========================================
+   * DISEÑO OPTIMIZADO PARA TABLET Y PC (≥ 768px)
+   * ======================================== */
+  @media (min-width: 768px) {
+    /* Overlay optimizado para pantallas grandes */
+    .modal-overlay {
+      /* Centrado perfecto sin espaciado superior */
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      
+      /* Padding mínimo para pantallas grandes */
+      padding: 2rem !important;
+      
+      /* Sin espacios extraños */
+      margin: 0 !important;
+      
+      /* Fondo optimizado */
+      background-color: rgba(0, 0, 0, 0.6) !important;
+      backdrop-filter: blur(4px) !important;
+    }
+    
+    /* CONTENEDORES MODALES TABLET/PC - SIN SCROLL INNECESARIO */
+    .modal-overlay .modal-container,
+    .modal-overlay .modal-standard,
+    .modal-overlay .modal-large,
+    .modal-overlay .modal-small {
+      /* Dimensiones optimizadas para pantallas grandes */
+      width: 100% !important;
+      max-width: 42rem !important; /* Más ancho en pantallas grandes */
+      max-height: 90vh !important; /* Más alto para evitar scroll */
+      
+      /* Sin márgenes extraños */
+      margin: 0 !important;
+      
+      /* Bordes y sombra */
+      border-radius: 1rem !important;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+      
+      /* Fondo */
+      background-color: rgb(31, 41, 55) !important; /* dark:bg-gray-800 */
+      
+      /* SIN overflow hidden para permitir scroll interno si es necesario */
+      overflow: visible !important;
+    }
+    
+    /* Modales grandes específicos para pantallas grandes */
+    .modal-overlay .modal-large {
+      max-width: 48rem !important; /* Aún más ancho para formularios complejos */
+    }
+    
+    /* Modales pequeños centrados perfectamente */
+    .modal-overlay .modal-small {
+      max-width: 28rem !important;
+      max-height: 80vh !important;
+    }
+    
+    /* CUERPO DEL MODAL - SIN SCROLL INNECESARIO */
+    .modal-overlay .modal-body {
+      /* Altura máxima optimizada para pantallas grandes */
+      max-height: calc(90vh - 8rem) !important; /* Restar header y footer */
+      
+      /* Scroll solo si es absolutamente necesario */
+      overflow-y: auto !important;
+      
+      /* Padding optimizado para pantallas grandes */
+      padding: 1.5rem !important;
+    }
+    
+    /* HEADER DEL MODAL - OPTIMIZADO PARA PANTALLAS GRANDES */
+    .modal-overlay .modal-header {
+      /* Padding optimizado */
+      padding: 1.5rem !important;
+      
+      /* Sin espacios extraños */
+      margin: 0 !important;
+    }
+    
+    /* FOOTER DEL MODAL - OPTIMIZADO PARA PANTALLAS GRANDES */
+    .modal-overlay .modal-footer {
+      /* Padding optimizado */
+      padding: 1.5rem !important;
+      
+      /* Sin espacios extraños */
+      margin: 0 !important;
+    }
+  }
+
+  /* ========================================
+   * OPTIMIZACIONES ESPECÍFICAS PARA PC (≥ 1024px)
+   * ======================================== */
+  @media (min-width: 1024px) {
+    /* MODAL DE TRANSACCIONES - SIN SCROLL INNECESARIO EN PC */
+    .modal-overlay .modal-large {
+      /* Altura máxima aumentada para evitar scroll */
+      max-height: 95vh !important;
+      
+      /* Overflow visible para permitir contenido completo */
+      overflow: visible !important;
+    }
+    
+    /* CONTENIDO DEL MODAL DE TRANSACCIONES - SIN SCROLL */
+    .modal-overlay .modal-large form {
+      /* Sin altura máxima para permitir contenido completo */
+      max-height: none !important;
+      
+      /* Sin overflow para evitar scroll innecesario */
+      overflow: visible !important;
+    }
+    
+    /* CUERPO DEL MODAL DE TRANSACCIONES - SIN SCROLL */
+    .modal-overlay .modal-large .modal-body {
+      /* Sin altura máxima para permitir contenido completo */
+      max-height: none !important;
+      
+      /* Sin overflow para evitar scroll innecesario */
+      overflow: visible !important;
+    }
+    
+    /* MODAL DE AUTOMATIZACIONES - MISMO TAMAÑO QUE TRANSACCIONES */
+    .modal-overlay .modal-large .automatizacion-wizard {
+      /* Mismo tamaño que el modal de transacciones */
+      max-width: 42rem !important;
+      max-height: 95vh !important;
+      
+      /* Overflow visible para permitir contenido completo */
+      overflow: visible !important;
+    }
+    
+    /* CONTENIDO DEL MODAL DE AUTOMATIZACIONES - SIN SCROLL INNECESARIO */
+    .modal-overlay .modal-large .automatizacion-wizard .space-y-4 {
+      /* Sin altura máxima para permitir contenido completo */
+      max-height: none !important;
+      
+      /* Sin overflow para evitar scroll innecesario */
+      overflow: visible !important;
+    }
+    
+    /* CONTENIDO DEL MODAL DE AUTOMATIZACIONES - SIN SCROLL INNECESARIO */
+    .modal-overlay .modal-large .automatizacion-wizard > div {
+      /* Sin altura máxima para permitir contenido completo */
+      max-height: none !important;
+      
+      /* Sin overflow para evitar scroll innecesario */
+      overflow: visible !important;
+    }
+  }
+
+  /* ========================================
+   * MODAL PANTALLA COMPLETA EN MÓVIL
+   * ======================================== */
+  .modal-fullscreen-mobile {
+    @apply modal-container;
+  }
+
+  @media (max-width: 767px) {
+    .modal-fullscreen-mobile {
+      @apply fixed w-full rounded-none shadow-none;
+      /* Pantalla COMPLETA */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      max-width: 100%;
+      max-height: 100vh;
+      margin: 0;
+      /* Considerar navegación inferior móvil */
+      padding-bottom: 5rem;
+      height: calc(100vh - 5rem);
+      /* Safe areas para iPhone/Android */
+      padding-top: env(safe-area-inset-top, 0);
+    }
+    
+    /* Overlay para modales fullscreen sin padding */
+    .modal-overlay:has(.modal-fullscreen-mobile) {
+      @apply p-0 items-stretch;
+    }
+  }
+
+  /* ========================================
+   * ESTILOS ADICIONALES PARA MODALES
+   * ======================================== */
+  
+  /* ========================================
+   * CUERPO Y ESTRUCTURA INTERNA DEL MODAL
+   * ======================================== */
+  
+  /* Scroll interno del modal */
+  .modal-body {
+    @apply overflow-y-auto;
+    max-height: calc(100vh - 16rem);
+  }
+
+  /* Header del modal con diseño móvil mejorado */
+  .modal-header {
+    @apply flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 relative;
+  }
+
+  /* Footer del modal */
+  .modal-footer {
+    @apply flex items-center justify-end gap-3 p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800;
+  }
+
+  /* ========================================
+   * AJUSTES MÓVILES ESPECÍFICOS PARA MODALES
+   * ======================================== */
+  @media (max-width: 767px) {
+    .modal-body {
+      max-height: calc(85vh - 8rem); /* Ajustado para bottom sheet */
+      /* Padding lateral más generoso en móvil */
+      @apply px-5 py-4;
+    }
+
+    /* Header móvil optimizado para modales centrados */
+    .modal-header {
+      @apply px-4 py-4 relative;
+      /* Padding estándar para modales centrados */
+      padding-top: 1rem;
+    }
+
+    /* Sin handle de arrastre para modales centrados */
+    .modal-header::before {
+      display: none;
+    }
+
+    /* Footer móvil optimizado para táctil */
+    .modal-footer {
+      @apply flex-col gap-3 px-4 py-4;
+      /* Safe area para dispositivos con home indicator */
+      padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0));
+    }
+    
+    .modal-footer button {
+      @apply w-full justify-center py-3 text-base font-semibold rounded-xl;
+      /* Botones más grandes para dedos */
+      min-height: 3.25rem;
+      /* Mejorar contraste táctil */
+      transition: all 0.2s ease;
+    }
+
+    .modal-footer button:active {
+      transform: scale(0.98);
+    }
+
+    /* Modales pequeños mantienen layout compacto */
+    .modal-small .modal-header {
+      padding-top: 1rem;
+    }
+
+    .modal-small .modal-header::before {
+      display: none; /* Sin handle para modales pequeños */
+    }
+
+    .modal-small .modal-footer {
+      @apply flex-row gap-3;
+      padding-bottom: 1rem;
+    }
+
+    .modal-small .modal-footer button {
+      @apply flex-1 py-2.5 text-sm font-medium rounded-lg;
+      min-height: 2.75rem;
+    }
+  }
+
+  /* ========================================
+   * SISTEMA DE ALERTAS Y TOASTS RESPONSIVE
+   * ======================================== */
+  
+  /* Contenedor principal de toasts */
+  .toast-container {
+    @apply fixed z-50 pointer-events-none;
+    /* Desktop: esquina superior derecha */
+    top: 1rem;
+    right: 1rem;
+  }
+
+  /* Toast individual */
+  .toast {
+    @apply pointer-events-auto mb-4 p-4 rounded-lg shadow-lg backdrop-blur-sm;
+    min-width: 300px;
+    max-width: 400px;
+  }
+
+  /* Tipos de toast */
+  .toast-success {
+    @apply bg-green-100 dark:bg-green-900/80 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-700;
+  }
+
+  .toast-error {
+    @apply bg-red-100 dark:bg-red-900/80 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-700;
+  }
+
+  .toast-warning {
+    @apply bg-yellow-100 dark:bg-yellow-900/80 text-yellow-800 dark:text-yellow-200 border border-yellow-200 dark:border-yellow-700;
+  }
+
+  .toast-info {
+    @apply bg-blue-100 dark:bg-blue-900/80 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-700;
+  }
+
+  /* ========================================
+   * TOASTS EN MÓVIL (< 768px)
+   * ======================================== */
+  @media (max-width: 768px) {
+    .toast-container {
+      /* Móvil: parte superior centrada, evitando navegación */
+      top: 1rem;
+      left: 1rem;
+      right: 1rem;
+      bottom: auto;
+    }
+
+    .toast {
+      @apply w-full;
+      min-width: auto;
+      max-width: none;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  /* ========================================
+   * ALERTAS DE CONFIRMACIÓN Y NOTIFICACIONES
+   * ======================================== */
+  
+  /* Alerta de cambio de tema y similar */
+  .notification-alert {
+    @apply fixed z-50 p-4 rounded-lg shadow-lg backdrop-blur-sm;
+    /* Desktop: parte inferior derecha */
+    bottom: 1rem;
+    right: 1rem;
+    min-width: 300px;
+    max-width: 400px;
+  }
+
+  @media (max-width: 768px) {
+    .notification-alert {
+      /* Móvil: parte superior, evitando navegación */
+      top: 1rem;
+      bottom: auto;
+      left: 1rem;
+      right: 1rem;
+      min-width: auto;
+      max-width: none;
+    }
+  }
+
+  /* Estilos para diferentes tipos de notificaciones */
+  .notification-success {
+    @apply bg-green-100 dark:bg-green-900/90 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-700;
+  }
+
+  .notification-info {
+    @apply bg-blue-100 dark:bg-blue-900/90 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-700;
+  }
+
+  .notification-warning {
+    @apply bg-yellow-100 dark:bg-yellow-900/90 text-yellow-800 dark:text-yellow-200 border border-yellow-200 dark:border-yellow-700;
+  }
+
+  /* ========================================
+   * ANIMACIONES PARA TOASTS Y NOTIFICACIONES
+   * ======================================== */
+  
+  /* Entrada desde la derecha (desktop) */
+  .toast-enter {
+    animation: slideInFromRight 0.3s ease-out;
+  }
+
+  .toast-exit {
+    animation: slideOutToRight 0.3s ease-in;
+  }
+
+  @keyframes slideInFromRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideOutToRight {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* Entrada desde arriba (móvil) */
+  @media (max-width: 768px) {
+    .toast-enter {
+      animation: slideInFromTop 0.3s ease-out;
+    }
+
+    .toast-exit {
+      animation: slideOutToTop 0.3s ease-in;
+    }
+  }
+
+  @keyframes slideInFromTop {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideOutToTop {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+  }
+
+  /* ========================================
+   * ANIMACIONES PARA SKELETON LOADING OPTIMIZADO
+   * ======================================== */
+
+  /* Animación para fade-in suave */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Animación para skeleton loading */
+  @keyframes skeletonPulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  /* Animación para shimmer */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Clases utilitarias para loading */
+  .loading-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .loading-skeleton {
+    animation: skeletonPulse 2s ease-in-out infinite;
+  }
+
+  .loading-shimmer {
+    animation: shimmer 2s infinite;
+  }
+
+  /* Animaciones para transiciones de contenido */
+  @keyframes contentSlideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes staggeredFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Clases para contenido sin parpadeo */
+  .content-slide-up {
+    animation: contentSlideUp 0.5s ease-out;
+  }
+
+  .staggered-fade-in {
+    animation: staggeredFadeIn 0.4s ease-out;
+  }
+
+  /* Estados de visibilidad controlada */
+  .content-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .content-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.3s ease-out;
+  }
+
+  /* Animaciones para el carrusel */
+  .carousel-slide {
+    animation: carouselSlide 0.5s ease-out;
+  }
+
+  @keyframes carouselSlide {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Hover effects para las tarjetas del carrusel */
+  .carousel-card-hover {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  .carousel-card-hover:hover {
+    @apply transform -translate-y-1 shadow-lg;
+  }
+}
+
+/* Estilos para optgroup en selects de cuentas */
+optgroup {
+  font-weight: 600;
+  color: #4b5563;
+  background-color: #f9fafb;
+  font-size: 0.875rem;
+  padding: 0.375rem 0.5rem;
+}
+
+.dark optgroup {
+  color: #d1d5db;
+  background-color: #374151;
+}
+
+optgroup option {
+  font-weight: 400;
+  color: #374151;
+  background-color: #ffffff;
+  padding: 0.375rem 0.75rem;
+}
+
+.dark optgroup option {
+  color: #f3f4f6;
+  background-color: #1f2937;
+}
