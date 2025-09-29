@@ -84,26 +84,19 @@ const useDashboard = () => {
     lastCallTimeRef.current = now;
     monedaPrincipalRef.current = monedaPrincipal;
     
-    setIsLoading(true)
     setError(null)
 
     try {
       const response = await obtenerDashboardCompletoAPI()
       
       if (response.success) {
-        console.log(`✅ Datos recibidos del backend:`, response.data);
-        
-        // Los datos ya vienen completamente convertidos desde el backend
         const datosFormateados = procesarDatosDashboard(response.data)
-        
         setDashboardData(datosFormateados)
         setUltimaActualizacion(new Date())
         setShowContent(true)
         setIsLoading(false)
         setIsInitialLoad(false)
         isInitialLoadRef.current = false;
-        
-        console.log(`🎉 Dashboard actualizado exitosamente en ${monedaPrincipal}`);
       } else {
         throw new Error(response.message || 'Error al cargar dashboard')
       }
@@ -113,8 +106,7 @@ const useDashboard = () => {
       showError(errorMessage)
       setIsLoading(false)
       setShowContent(true)
-      
-      console.error('❌ Error cargando dashboard:', error)
+      if (import.meta.env.DEV) console.error('❌ Error cargando dashboard:', error)
     } finally {
       isLoadingRef.current = false;
     }
