@@ -9,7 +9,8 @@
     "build": "npm install && npm run migrate",
     "migrate": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback",
-    "seed": "knex seed:run"
+    "seed": "knex seed:run",
+    "verify-timezone": "node verify-timezone.js"
   },
   "keywords": [
     "finanzas",

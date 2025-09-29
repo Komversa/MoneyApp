@@ -23,17 +23,23 @@ class ScheduledTransactionsService {
       return;
     }
 
+    // Obtener zona horaria de variable de entorno o usar America/Managua por defecto
+    const timezone = process.env.TZ || 'America/Managua';
+    console.log(`⏰ Configurando scheduler con zona horaria: ${timezone}`);
+
     // Ejecutar cada hora (minuto 0)
     this.schedulerTask = cron.schedule('0 * * * *', async () => {
       console.log('🔄 Ejecutando scheduler de transacciones programadas...');
+      console.log(`🌍 Zona horaria actual: ${timezone}`);
+      console.log(`🕐 Hora del servidor: ${new Date().toLocaleString('es-ES', { timeZone: timezone })}`);
       await this.processScheduledTransactions();
     }, {
       scheduled: true,
-      timezone: 'America/Managua'
+      timezone: timezone
     });
 
     this.isSchedulerRunning = true;
-    console.log('✅ Scheduler de transacciones programadas iniciado');
+    console.log(`✅ Scheduler de transacciones programadas iniciado en zona horaria: ${timezone}`);
   }
 
   /**

@@ -83,7 +83,15 @@ NODE_ENV=production
 DATABASE_URL=tu-connection-string-de-neon
 JWT_SECRET=tu-super-secret-jwt-key
 FRONTEND_URL=https://tu-frontend.vercel.app
+TZ=America/Managua
 ```
+
+**⚠️ IMPORTANTE**: La variable `TZ` controla la zona horaria del servidor. Esto es crítico para que las transacciones programadas se ejecuten a la hora correcta. Usa el formato de zona horaria IANA:
+- `America/Managua` - Nicaragua
+- `America/Guatemala` - Guatemala
+- `America/Mexico_City` - México
+- `America/Costa_Rica` - Costa Rica
+- Ver más zonas en: [Lista de zonas horarias](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 
 ### 2.4 Desplegar
 1. Haz clic en **Create Web Service**
@@ -165,6 +173,12 @@ FRONTEND_URL=https://tu-app.vercel.app
 ### Error de Build
 - Revisa los logs en Render/Vercel
 - Verifica que todas las dependencias estén en `package.json`
+
+### Transacciones Programadas en Hora Incorrecta
+- **Causa**: Zona horaria no configurada (servidor usa UTC por defecto)
+- **Solución**: Agrega la variable `TZ=America/Managua` en Render
+- **Verificación**: Ejecuta `npm run verify-timezone` en el backend local
+- **Documentación completa**: Ver `CONFIGURACION_ZONA_HORARIA.md`
 
 ---
 
