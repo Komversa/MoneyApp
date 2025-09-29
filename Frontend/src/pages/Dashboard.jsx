@@ -129,7 +129,7 @@ const Dashboard = () => {
             <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
               {datos.titulo}
             </h3>
-            <p className={`text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black ${getValueColor()} break-words transition-colors duration-300 leading-tight`}>
+            <p className={`text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-black ${getValueColor()} transition-colors duration-300 leading-tight whitespace-nowrap overflow-hidden text-ellipsis`}>
               {formatCurrency(datos.valor, monedaPrincipal)}
             </p>
             <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
