@@ -641,7 +641,7 @@ const Dashboard = () => {
       </div>
 
       {/* Estado vacío general */}
-      {!isLoading && !hayDatos && (
+      {!isLoading && !error && showContent && !hayDatos && (
         <div className="card p-12 text-center">
           <DollarSign className="h-16 w-16 text-gray-300 mx-auto mb-4" />
           <h3 className="text-xl font-semibold heading-dark-contrast mb-2">

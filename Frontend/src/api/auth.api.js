@@ -17,7 +17,98 @@ const apiClient = axios.create({
 /**
  * Interceptor de peticiones para agregar el token de autorización
  * Se ejecuta antes de cada petición HTTP
-{{ ... }}
+ */
+apiClient.interceptors.request.use(
+  (config) => {
+    // Obtener el token del localStorage (donde Zustand persiste el estado)
+    const persistedState = localStorage.getItem('moneyapp-auth')
+    
+    if (persistedState) {
+      try {
+        const authData = JSON.parse(persistedState)
+        const accessToken = authData?.state?.accessToken
+        
+        if (accessToken) {
+          config.headers.Authorization = `Bearer ${accessToken}`
+        }
+      } catch (error) {
+        console.warn('Error al parsear el token del localStorage:', error)
+      }
+    }
+    
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+
+/**
+ * Interceptor de respuestas para manejar errores globales
+ * Se ejecuta después de cada respuesta HTTP
+ */
+apiClient.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  async (error) => {
+    // Mejorar el error con información adicional
+    if (!error.metadata) {
+      error.metadata = {
+        timestamp: new Date().toISOString(),
+        url: error.config?.url,
+        method: error.config?.method,
+        retryCount: 0
+      }
+    }
+    
+    // Manejar errores de autenticación (401)
+    if (error.response?.status === 401) {
+      // Intentar renovar el token automáticamente
+      try {
+        const persistedState = localStorage.getItem('moneyapp-auth')
+        
+        if (persistedState) {
+          const authData = JSON.parse(persistedState)
+          const refreshToken = authData?.state?.refreshToken
+        
+          if (refreshToken) {
+            console.log('🔄 Token expirado, intentando renovación automática...')
+            
+            // Importar la función de renovación
+            const { refreshTokenAPI } = await import('./auth.api')
+            const refreshResponse = await refreshTokenAPI(refreshToken)
+            
+            if (refreshResponse.success) {
+              // Actualizar el token en localStorage
+              const updatedState = {
+                ...authData,
+                state: {
+                  ...authData.state,
+                  accessToken: refreshResponse.data.accessToken
+                }
+              }
+              localStorage.setItem('moneyapp-auth', JSON.stringify(updatedState))
+              
+              // Reintentar la petición original con el nuevo token
+              const originalRequest = error.config
+              originalRequest.headers.Authorization = `Bearer ${refreshResponse.data.accessToken}`
+              
+              console.log('✅ Token renovado, reintentando petición original...')
+              return apiClient(originalRequest)
+            }
+          }
+        }
+      } catch (refreshError) {
+        console.warn('⚠️ No se pudo renovar el token:', refreshError)
+      }
+      
+      // Si la renovación falla, limpiar el estado y redirigir al login
+      console.log('❌ Renovación de token falló, redirigiendo al login...')
+      localStorage.removeItem('moneyapp-auth')
+      
+      // Redirigir al login si no estamos ya en páginas de auth
+      const currentPath = window.location.pathname
       if (!currentPath.includes('/login') && !currentPath.includes('/registro')) {
         window.location.href = '/login'
       }
@@ -36,7 +127,9 @@ const apiClient = axios.create({
     
     return Promise.reject(error)
   }
+)
 
+/**
  * Función para iniciar sesión
  * @param {string} email - Email del usuario
  * @param {string} password - Contraseña del usuario
