@@ -348,8 +348,8 @@ const Automatizaciones = () => {
         </div>
       </div>
 
-      {/* Estadísticas - OPTIMIZADAS PARA MÓVIL */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+      {/* Estadísticas - OPTIMIZADAS PARA MÓVIL Y TABLET */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
         {/* Total */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -368,7 +368,7 @@ const Automatizaciones = () => {
               <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                 TOTAL
               </h3>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-black text-blue-600 dark:text-blue-400 truncate transition-colors duration-300">
+              <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-blue-600 dark:text-blue-400 break-words transition-colors duration-300 leading-tight">
                 {estadisticas.total}
               </p>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
@@ -402,7 +402,7 @@ const Automatizaciones = () => {
               <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                 ACTIVAS
               </h3>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-black text-green-600 dark:text-green-400 truncate transition-colors duration-300">
+              <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-green-600 dark:text-green-400 break-words transition-colors duration-300 leading-tight">
                 {estadisticas.activas}
               </p>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
@@ -436,7 +436,7 @@ const Automatizaciones = () => {
               <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                 PAUSADAS
               </h3>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-black text-yellow-600 dark:text-yellow-400 truncate transition-colors duration-300">
+              <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-yellow-600 dark:text-yellow-400 break-words transition-colors duration-300 leading-tight">
                 {estadisticas.inactivas}
               </p>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
@@ -457,7 +457,7 @@ const Automatizaciones = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.3 }}
-          className="relative group card p-4 sm:p-6 hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-[1.02] active:scale-[0.98] overflow-hidden sm:col-span-2 lg:col-span-1"
+          className="relative group card p-4 sm:p-6 hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-purple-50/20 dark:to-purple-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           
@@ -470,7 +470,7 @@ const Automatizaciones = () => {
               <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                 MENSUALES
               </h3>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-black text-purple-600 dark:text-purple-400 truncate transition-colors duration-300">
+              <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-purple-600 dark:text-purple-400 break-words transition-colors duration-300 leading-tight">
                 {estadisticas.porFrecuencia.mensual}
               </p>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">

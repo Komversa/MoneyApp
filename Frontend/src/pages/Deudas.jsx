@@ -206,7 +206,7 @@ const Deudas = () => {
               <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                 TOTAL DEUDAS
               </h3>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-black text-danger-600 dark:text-danger-400 truncate transition-colors duration-300">
+              <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-danger-600 dark:text-danger-400 break-words transition-colors duration-300 leading-tight">
                 {formatCurrency(resumenDeudas.totalDeudas, resumenDeudas.monedaPrincipal)}
               </p>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
@@ -240,7 +240,7 @@ const Deudas = () => {
               <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                 TASA PROMEDIO
               </h3>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-black text-purple-600 dark:text-purple-400 truncate transition-colors duration-300">
+              <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-purple-600 dark:text-purple-400 break-words transition-colors duration-300 leading-tight">
                 {resumenDeudas.tasaPromedio ? `${resumenDeudas.tasaPromedio.toFixed(2)}%` : '0.00%'}
               </p>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
@@ -274,7 +274,7 @@ const Deudas = () => {
               <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                 CANTIDAD DEUDAS
               </h3>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-black text-gray-600 dark:text-gray-400 truncate transition-colors duration-300">
+              <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-gray-600 dark:text-gray-400 break-words transition-colors duration-300 leading-tight">
                 {deudas.length}
               </p>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">

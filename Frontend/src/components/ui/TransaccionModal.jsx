@@ -428,9 +428,9 @@ const TransaccionModal = ({
           ? (isEditing ? 'Editar Automatización' : 'Nueva Automatización')
           : (isEditing ? 'Editar Transacción' : 'Nueva Transacción')
       }
-      size="large"
+      size="standard"
     >
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4">
         {/* Pestañas de tipo de transacción */}
         <div>
           <label className="form-label mb-3">Tipo de Transacción *</label>
@@ -446,11 +446,11 @@ const TransaccionModal = ({
                   onClick={() => handleCambiarTipo(tipo.id)}
                   disabled={isLoading}
                   className={`
-                    p-4 border-2 rounded-lg flex flex-col items-center space-y-2 transition-all
+                    p-3 border-2 rounded-lg flex flex-col items-center space-y-1.5 transition-all
                     ${isActive ? tipo.activeColor : `${tipo.color} bg-white border-gray-200`}
                   `}
                 >
-                  <Icon className="h-6 w-6" />
+                  <Icon className="h-5 w-5" />
                   <span className="text-sm font-medium">{tipo.label}</span>
                 </button>
               )

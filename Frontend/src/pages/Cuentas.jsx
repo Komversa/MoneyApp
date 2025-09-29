@@ -371,7 +371,7 @@ const Cuentas = () => {
               <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                 TOTAL ACTIVOS
               </h3>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-black text-success-600 dark:text-success-400 truncate transition-colors duration-300">
+              <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-success-600 dark:text-success-400 break-words transition-colors duration-300 leading-tight">
                 {formatCurrency(resumenFinanciero?.totalActivos || 0, resumenFinanciero?.primaryCurrency || 'USD')}
               </p>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
@@ -419,7 +419,7 @@ const Cuentas = () => {
                 <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                   CUENTA PRINCIPAL
                 </h3>
-                <p className="text-xl sm:text-2xl lg:text-3xl font-black text-yellow-600 dark:text-yellow-400 truncate transition-colors duration-300" title={panelPatrimonio.principalAccount?.name}>
+                <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-yellow-600 dark:text-yellow-400 break-words transition-colors duration-300 leading-tight" title={panelPatrimonio.principalAccount?.name}>
                   {panelPatrimonio.principalAccount?.name}
                 </p>
                 <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
@@ -452,7 +452,7 @@ const Cuentas = () => {
                 <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                   CUENTA PRINCIPAL
                 </h3>
-                <p className="text-xl sm:text-2xl lg:text-3xl font-black text-gray-500 dark:text-gray-400 truncate transition-colors duration-300">
+                <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-gray-500 dark:text-gray-400 break-words transition-colors duration-300 leading-tight">
                   No hay cuentas
                 </p>
                 <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
@@ -483,7 +483,7 @@ const Cuentas = () => {
               <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                 DISTRIBUCIÓN
               </h3>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-black text-blue-600 dark:text-blue-400 truncate transition-colors duration-300">
+              <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-blue-600 dark:text-blue-400 break-words transition-colors duration-300 leading-tight">
                 {panelPatrimonio?.distributionByType?.length || 0} tipos
               </p>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">

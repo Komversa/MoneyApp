@@ -705,7 +705,7 @@ const Transacciones = () => {
               <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                 TOTAL INGRESOS
               </h3>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-black text-success-600 dark:text-success-400 truncate transition-colors duration-300">
+              <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-success-600 dark:text-success-400 break-words transition-colors duration-300 leading-tight">
                 {resumen ? formatCurrency(resumen.totalIncome, resumen.primaryCurrency) : 'Cargando...'}
               </p>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
@@ -739,7 +739,7 @@ const Transacciones = () => {
               <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                 TOTAL GASTOS
               </h3>
-              <p className="text-xl sm:text-2xl lg:text-3xl font-black text-danger-600 dark:text-danger-400 truncate transition-colors duration-300">
+              <p className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black text-danger-600 dark:text-danger-400 break-words transition-colors duration-300 leading-tight">
                 {resumen ? formatCurrency(resumen.totalExpenses, resumen.primaryCurrency) : 'Cargando...'}
               </p>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
@@ -781,7 +781,7 @@ const Transacciones = () => {
               <h3 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 truncate uppercase tracking-wide">
                 {filtros.startDate || filtros.endDate ? 'BALANCE (PERIODO)' : 'BALANCE HISTÓRICO'}
               </h3>
-              <p className={`text-xl sm:text-2xl lg:text-3xl font-black truncate transition-colors duration-300 ${
+              <p className={`text-lg sm:text-xl lg:text-2xl xl:text-3xl font-black break-words transition-colors duration-300 leading-tight ${
                 resumen && resumen.balanceNeto >= 0 ? 'text-success-600 dark:text-success-400' : 'text-danger-600 dark:text-danger-400'
               }`}>
                 {resumen ? formatCurrency(resumen.balanceNeto, resumen.primaryCurrency) : 'Cargando...'}
