@@ -45,6 +45,21 @@ class AuthService {
             primary_currency: 'USD'  // 🚨 CAMBIO: USD como moneda principal por defecto
           });
 
+        // Crear tasas de cambio iniciales para el usuario
+        await trx('user_exchange_rates_pivot')
+          .insert([
+            {
+              user_id: newUser.id,
+              currency_code: 'USD',
+              rate_to_usd: 1.0
+            },
+            {
+              user_id: newUser.id,
+              currency_code: 'NIO',
+              rate_to_usd: 0.0274  // 1 NIO = 0.0274 USD (equivalente a 1 USD = 36.5 NIO)
+            }
+          ]);
+
         // Crear tipos de cuenta predeterminados
         const accountTypesData = [
           { user_id: newUser.id, name: 'Banco' },
@@ -86,6 +101,7 @@ class AuthService {
           console.log(`✅ Usuario registrado: ${email}`);
           console.log(`📦 Tipos de cuenta creados: ${accountTypesData.length}`);
           console.log(`📊 Categorías creadas: ${categoriesData.length}`);
+          console.log(`💱 Tasas de cambio iniciales creadas: USD (1.0), NIO (0.0274)`);
         }
 
         return newUser;
