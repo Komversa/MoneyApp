@@ -1,4 +1,4 @@
-const transactionsService = require('../services/transactions.service');
+﻿const transactionsService = require('../services/transactions.service');
 
 /**
  * Controlador de transacciones - Maneja las peticiones HTTP
@@ -50,7 +50,7 @@ class TransactionsController {
       if (type && !['income', 'expense', 'transfer'].includes(type)) {
         return res.status(400).json({
           success: false,
-          message: 'Tipo de transacción inválido. Debe ser "income", "expense" o "transfer"'
+          message: 'Tipo de transacción inválido. Debe ser \"income\", \"expense\", \"transfer\" o \"debt_payment\"'
         });
       }
       if (type) filters.type = type;
@@ -181,7 +181,7 @@ class TransactionsController {
       if (!type || !['income', 'expense', 'transfer'].includes(type)) {
         return res.status(400).json({
           success: false,
-          message: 'El tipo de transacción es requerido y debe ser "income", "expense" o "transfer"'
+          message: 'El tipo de transacción es requerido y debe ser \"income\", \"expense\", \"transfer\" o \"debt_payment\"'
         });
       }
 
@@ -327,7 +327,7 @@ class TransactionsController {
       if (updateData.type && !['income', 'expense', 'transfer'].includes(updateData.type)) {
         return res.status(400).json({
           success: false,
-          message: 'El tipo de transacción debe ser "income", "expense" o "transfer"'
+          message: 'El tipo de transacción debe ser \"income\", \"expense\", \"transfer\" o \"debt_payment\"'
         });
       }
 
@@ -586,7 +586,7 @@ class TransactionsController {
       if (type && !['income', 'expense', 'transfer'].includes(type)) {
         return res.status(400).json({
           success: false,
-          message: 'Tipo de transacción inválido. Debe ser "income", "expense" o "transfer"'
+          message: 'Tipo de transacción inválido. Debe ser \"income\", \"expense\", \"transfer\" o \"debt_payment\"'
         });
       }
       if (type) filters.type = type;

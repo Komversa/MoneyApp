@@ -310,6 +310,72 @@ class AuthService {
       throw new Error('Error interno del servidor al obtener usuario');
     }
   }
+
+  /**
+   * Actualizar contraseña del usuario
+   * @param {number} userId - ID del usuario
+   * @param {string} currentPassword - Contraseña actual
+   * @param {string} newPassword - Nueva contraseña
+   * @returns {Promise<Object>} - Confirmación de actualización
+   */
+  async updatePassword(userId, currentPassword, newPassword) {
+    try {
+      console.log(`\n🔐 === ACTUALIZACIÓN DE CONTRASEÑA ===`);
+      console.log(`🔍 Usuario ID: ${userId}`);
+
+      // Obtener usuario actual
+      const user = await db('users')
+        .select(['id', 'email', 'password_hash'])
+        .where({ id: userId })
+        .first();
+
+      if (!user) {
+        throw new Error('Usuario no encontrado');
+      }
+
+      console.log(`✅ Usuario encontrado: ${user.email}`);
+
+      // Verificar contraseña actual
+      const isCurrentPasswordValid = await verifyPassword(currentPassword, user.password_hash);
+
+      if (!isCurrentPasswordValid) {
+        console.log(`❌ Contraseña actual incorrecta`);
+        throw new Error('Contraseña actual incorrecta');
+      }
+
+      console.log(`✅ Contraseña actual verificada correctamente`);
+
+      // Hashear nueva contraseña
+      const newPasswordHash = await hashPassword(newPassword);
+
+      // Actualizar contraseña en la base de datos
+      await db('users')
+        .where({ id: userId })
+        .update({
+          password_hash: newPasswordHash,
+          updated_at: new Date()
+        });
+
+      console.log(`✅ Contraseña actualizada exitosamente`);
+
+      return {
+        success: true,
+        message: 'Contraseña actualizada exitosamente'
+      };
+
+    } catch (error) {
+      console.error(`❌ Error al actualizar contraseña:`, error.message);
+      
+      // Si es un error conocido, relanzarlo
+      if (error.message === 'Usuario no encontrado' || 
+          error.message === 'Contraseña actual incorrecta') {
+        throw error;
+      }
+      
+      // Error genérico para otros casos
+      throw new Error('Error interno del servidor al actualizar contraseña');
+    }
+  }
 }
 
 module.exports = new AuthService();

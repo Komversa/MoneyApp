@@ -197,6 +197,25 @@ export const refreshTokenAPI = async (refreshToken) => {
 }
 
 /**
+ * Función para actualizar la contraseña del usuario autenticado
+ * @param {string} currentPassword - Contraseña actual del usuario
+ * @param {string} newPassword - Nueva contraseña del usuario
+ * @returns {Promise<Object>} - Respuesta del servidor
+ */
+export const updatePasswordAPI = async (currentPassword, newPassword) => {
+  try {
+    const response = await apiClient.put('/api/auth/password', {
+      currentPassword,
+      newPassword
+    })
+    
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+/**
  * Función para verificar el estado del servidor
  * @returns {Promise<Object>} - Estado del servidor
  */

@@ -185,6 +185,61 @@ class AuthController {
       });
     }
   }
+
+  /**
+   * Actualizar contraseña del usuario autenticado
+   * PUT /api/auth/password
+   */
+  async updatePassword(req, res) {
+    try {
+      // Extraer y validar datos del body
+      const { currentPassword, newPassword } = req.body;
+
+      // Validaciones básicas
+      if (!currentPassword || !newPassword) {
+        return res.status(400).json({
+          success: false,
+          message: 'Contraseña actual y nueva contraseña son requeridas'
+        });
+      }
+
+      // Validar longitud de nueva contraseña
+      if (newPassword.length < 6) {
+        return res.status(400).json({
+          success: false,
+          message: 'La nueva contraseña debe tener al menos 6 caracteres'
+        });
+      }
+
+      // El usuario ya está autenticado por el middleware
+      const userId = req.user.id;
+
+      // Llamar al servicio para actualizar la contraseña
+      const result = await authService.updatePassword(userId, currentPassword, newPassword);
+
+      res.status(200).json({
+        success: true,
+        message: 'Contraseña actualizada exitosamente',
+        data: result
+      });
+
+    } catch (error) {
+      // Manejar errores conocidos
+      if (error.message === 'Contraseña actual incorrecta') {
+        return res.status(401).json({
+          success: false,
+          message: error.message
+        });
+      }
+
+      // Error interno del servidor
+      console.error('Error al actualizar contraseña:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Error interno del servidor'
+      });
+    }
+  }
 }
 
 module.exports = new AuthController();

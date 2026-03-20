@@ -21,4 +21,7 @@ router.post('/refresh', authController.refreshToken);
 // GET /api/auth/perfil - Obtener perfil del usuario autenticado
 router.get('/perfil', protegerRuta, authController.getProfile);
 
+// PUT /api/auth/password - Actualizar contraseña del usuario autenticado
+router.put('/password', protegerRuta, authController.updatePassword);
+
 module.exports = router;

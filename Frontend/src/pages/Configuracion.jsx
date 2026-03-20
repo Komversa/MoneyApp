@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   Plus, 
@@ -28,11 +28,13 @@ import TasaCambioModal from '../components/ui/TasaCambioModal'
 import ErrorDisplay from '../components/ui/ErrorDisplay'
 import RetryIndicator from '../components/ui/RetryIndicator'
 import ErrorDebugPanel from '../components/ui/ErrorDebugPanel'
+import PasswordUpdateForm from '../components/ui/PasswordUpdateForm'
 import { TRANSACTION_TYPE_LABELS } from '../utils/constants'
 import { formatCurrency } from '../utils/formatters'
 import { SUPPORTED_CURRENCIES, getAvailableCurrencies, getCurrencyOptions, getPrimaryCurrencyOptions, getExchangeRateCurrencyOptions } from '../utils/currencyData'
 import { actualizarMonedaPrincipalAPI } from '../api/settings.api'
 import { obtenerTasasUsuarioAPI, obtenerOpcionesMonedas } from '../api/currencies.api'
+import { updatePasswordAPI } from '../api/auth.api'
 import { useToast } from '../components/ui/Toaster'
 
 /**
@@ -40,7 +42,11 @@ import { useToast } from '../components/ui/Toaster'
  * Soluciona el desequilibrio visual y mejora la organización
  */
 const Configuracion = () => {
-  const { isMobile, isTablet, isDesktop } = useResponsive()
+  // Estados para perfil de usuario
+  const [showPasswordForm, setShowPasswordForm] = useState(false)
+  const { user } = useAuthStore()
+  const { isMobile } = useResponsive()
+
   const {
     // Estados de datos
     tiposCuenta,
@@ -584,7 +590,7 @@ const Configuracion = () => {
         </div>
       </div>
 
-      {/* Sección de Perfil (placeholder para futuras funcionalidades) */}
+      {/* Sección de Perfil de Usuario */}
       <div className="card">
         <div className="card-header">
           <div className="flex items-center space-x-3">
@@ -597,11 +603,34 @@ const Configuracion = () => {
             </div>
           </div>
         </div>
-        <div className="card-body">
-          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-            <Settings className="h-12 w-12 mx-auto mb-3 opacity-50" />
-            <p className="text-sm">Funcionalidad en desarrollo</p>
-            <p className="text-xs mt-1">Aquí podrás gestionar tu perfil de usuario</p>
+        <div className="card-body space-y-6">
+          {/* Información del usuario */}
+          <div className="space-y-4">
+            <div>
+              <label className="form-label">Correo Electrónico</label>
+              <div className="form-input bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                {user?.email || 'No disponible'}
+              </div>
+            </div>
+          </div>
+
+          {/* Sección de contraseña */}
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="text-md font-medium text-gray-900 dark:text-white">Actualizar Contraseña</h4>
+              <button
+                onClick={() => setShowPasswordForm(!showPasswordForm)}
+                className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              >
+                {showPasswordForm ? 'Cancelar' : 'Cambiar contraseña'}
+              </button>
+            </div>
+
+            {showPasswordForm && (
+              <PasswordUpdateForm 
+                onCancel={() => setShowPasswordForm(false)} 
+              />
+            )}
           </div>
         </div>
       </div>
